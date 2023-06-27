@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-06-2023 a las 18:39:53
+-- Tiempo de generación: 27-06-2023 a las 15:08:39
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -62,6 +62,14 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `comments`
+--
+
+INSERT INTO `comments` (`id`, `comTexto`, `product_id`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'El producto esta buenisimo', 1, 1, NULL, '2023-06-27 17:20:40', '2023-06-27 17:20:40'),
+(2, 'El producto esta bueno, pero le falta mas informacion', 2, 1, '2023-06-27 17:22:33', '2023-06-27 17:21:19', '2023-06-27 17:22:33');
 
 -- --------------------------------------------------------
 
@@ -154,6 +162,17 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\User', 1, 'auth_token', '47727ee19a025e93bfcd7a5e24bd328705a03560782bf751a07245b9db149f5d', '[\"*\"]', NULL, NULL, '2023-06-27 17:44:22', '2023-06-27 17:44:22'),
+(2, 'App\\Models\\User', 1, 'auth_token', '444f3b7701b44d9e58ab97089abb4bdb95d026b1e93ad0674ff3282297bd5486', '[\"*\"]', NULL, NULL, '2023-06-27 17:45:48', '2023-06-27 17:45:48'),
+(3, 'App\\Models\\User', 1, 'auth_token', '8b2e1d1b9d260fc4ad8efde31988047e0aa3550655f3e8b6ba5ff2c17d8f56ea', '[\"*\"]', NULL, NULL, '2023-06-27 17:46:59', '2023-06-27 17:46:59'),
+(4, 'App\\Models\\User', 1, 'auth_token', '0e9c5d15c48b05932e904eb5d0389f81717d64d367aaeeb03a85c9bbf0623a81', '[\"*\"]', NULL, NULL, '2023-06-27 17:47:14', '2023-06-27 17:47:14'),
+(5, 'App\\Models\\User', 1, 'auth_token', '8f2a8c39369f2cb7df64a58e9855544c13b05b849f933cfd203226ca62964d3b', '[\"*\"]', '2023-06-27 17:54:38', NULL, '2023-06-27 17:51:09', '2023-06-27 17:54:38');
+
 -- --------------------------------------------------------
 
 --
@@ -174,6 +193,15 @@ CREATE TABLE `products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id`, `proCodigo`, `proNombre`, `proDescripcion`, `proCantDisponible`, `proPrecio`, `proImagen`, `category_id`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 54, 'Café premium', 'El mejor café del Huila', 8, 42000, 'sh5seheheh95eh4eh49', 1, 1, NULL, '2023-06-27 17:13:44', '2023-06-27 17:13:44'),
+(2, 20, 'Café especial', 'El mejor café del pais', 4, 65500, 'bdfhs8eheh4er', 3, 1, NULL, '2023-06-27 17:14:42', '2023-06-27 17:14:42'),
+(3, 26, 'Café San Juan', 'La mejor calidad del mercado', 12, 29900, 'dbs8eheh4eh', 2, 1, '2023-06-27 17:16:51', '2023-06-27 17:15:30', '2023-06-27 17:16:51');
 
 -- --------------------------------------------------------
 
@@ -232,6 +260,14 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `useNombres`, `useApellidos`, `useCorreo`, `usePassword`, `useRol`, `seller_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Carlos Santiago', 'Gonzalez Cuellar', 'sc805036@gmail.com', '$2y$10$eGNmtkdsqv0iPCkAUGgtAu./sL6fBZHNVSZnt0FDlg.4yp6CEvhHi', 'Vendedor', 1, NULL, '2023-06-27 16:56:16', '2023-06-27 16:56:16'),
+(2, 'Natalia Andrea', 'Soto Longas', 'natasoto@gmail.com', '$2y$10$ysHLQV7APZ6ntVZ/UOtvuuYdLYiTLApjMKCCMjfdx0QjkLsWqXgDq', 'Comprador', NULL, '2023-06-27 17:08:09', '2023-06-27 17:03:29', '2023-06-27 17:08:09');
 
 --
 -- Índices para tablas volcadas
@@ -321,7 +357,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `companies`
@@ -345,13 +381,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `purchases`
@@ -369,7 +405,7 @@ ALTER TABLE `sellers`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
