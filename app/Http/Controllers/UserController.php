@@ -14,7 +14,6 @@ class UserController extends Controller
     private $useCorreo = "";
     private $usePassword = "";
     private $useRol = "";
-    private $seller_id = "";
 
     /**
      * METODO DE URL READ DE USER: GET
@@ -60,17 +59,11 @@ class UserController extends Controller
             $this->useCorreo = $datos->useCorreo;
             $this->usePassword = $datos->usePassword;
             $this->useRol = $datos->useRol;
-            if (!isset($datos->seller_id)) {
-                $this->seller_id = null;
-            } else {
-                $this->seller_id = $datos->seller_id;
-            }
             $_user->useNombres = $this->useNombres;
             $_user->useApellidos = $this->useApellidos;
             $_user->useCorreo = $this->useCorreo;
             $_user->usePassword = Hash::make($this->usePassword);
             $_user->useRol = $this->useRol;
-            $_user->seller_id = $this->seller_id;
             $_user->save();
 
             $respu = $_user;
@@ -132,11 +125,6 @@ class UserController extends Controller
             if (isset($datos->useRol)) {
                 $this->useRol = $datos->useRol;
             }
-            if (isset($datos->seller_id)) {
-                $this->seller_id = $datos->seller_id;
-            } else {
-                $this->seller_id = null;
-            }
 
             $_user = User::find($this->usuarioId);
             $resultArray = array();
@@ -152,7 +140,6 @@ class UserController extends Controller
                 $_user->useCorreo = $this->useCorreo;
                 $_user->usePassword = Hash::make($this->usePassword);
                 $_user->useRol = $this->useRol;
-                $_user->seller_id = $this->seller_id;
                 $_user->save();
 
                 $respu = $_user;

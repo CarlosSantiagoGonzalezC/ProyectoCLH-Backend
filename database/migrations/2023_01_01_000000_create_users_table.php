@@ -18,9 +18,6 @@ return new class extends Migration
             $table->string('useCorreo')->unique();
             $table->string('usePassword');
             $table->enum('useRol', ['Vendedor', 'Comprador']);
-            $table->unsignedBigInteger('seller_id')->nullable();
-            $table->foreign('seller_id')->references('id')->on('sellers')
-                    ->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });

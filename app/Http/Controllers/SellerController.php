@@ -11,7 +11,7 @@ class SellerController extends Controller
     private $selDireccion = "";
     private $selNumContacto = "";
     private $selPermiso = "";
-    private $company_id = "";
+    private $user_id = "";
 
     /**
      * METODO DE URL READ DE SELLER: GET
@@ -48,17 +48,17 @@ class SellerController extends Controller
         $_seller = new Seller();
         $datos = json_decode($request->getContent());
 
-        if (!isset($datos->selDireccion) || !isset($datos->selNumContacto) || !isset($datos->selPermiso) || !isset($datos->company_id)) {
+        if (!isset($datos->selDireccion) || !isset($datos->selNumContacto) || !isset($datos->selPermiso) || !isset($datos->user_id)) {
             return $_respuestas->error_400();
         } else {
             $this->selDireccion = $datos->selDireccion;
             $this->selNumContacto = $datos->selNumContacto;
             $this->selPermiso = $datos->selPermiso;
-            $this->company_id = $datos->company_id;
+            $this->user_id = $datos->user_id;
             $_seller->selDireccion = $this->selDireccion;
             $_seller->selNumContacto = $this->selNumContacto;
             $_seller->selPermiso = $this->selPermiso;
-            $_seller->company_id = $this->company_id;
+            $_seller->user_id = $this->user_id;
             $_seller->save();
 
             $respu = $_seller;
@@ -114,8 +114,8 @@ class SellerController extends Controller
             if (isset($datos->selPermiso)) {
                 $this->selPermiso = $datos->selPermiso;
             }
-            if (isset($datos->company_id)) {
-                $this->company_id = $datos->company_id;
+            if (isset($datos->user_id)) {
+                $this->user_id = $datos->user_id;
             }
 
             $_seller = Seller::find($this->vendedorId);
@@ -130,7 +130,7 @@ class SellerController extends Controller
                 $_seller->selDireccion = $this->selDireccion;
                 $_seller->selNumContacto = $this->selNumContacto;
                 $_seller->selPermiso = $this->selPermiso;
-                $_seller->company_id = $this->company_id;
+                $_seller->user_id = $this->user_id;
                 $_seller->save();
 
                 $respu = $_seller;

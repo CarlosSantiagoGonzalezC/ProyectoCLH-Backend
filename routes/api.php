@@ -28,7 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     // ----------- RUTAS CRUD USERS ----------------
     Route::controller(UserController::class)->group(function () {
-        Route::post('user/create', 'create');
         Route::delete('user/delete', 'delete');
         Route::get('user/read', 'read');
         Route::patch('user/update', 'update');
@@ -36,7 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ----------- RUTAS CRUD SELLERS ----------------
     Route::controller(SellerController::class)->group(function () {
-        Route::post('seller/create', 'create');
         Route::delete('seller/delete', 'delete');
         Route::get('seller/read', 'read');
         Route::patch('seller/update', 'update');
@@ -59,7 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // ----------- RUTAS CRUD PRODUCTS ----------------
-    Route::get('/', ProductController::class);
     Route::controller(ProductController::class)->group(function () {
         Route::post('product/create', 'create');
         Route::delete('product/delete', 'delete');
@@ -79,3 +76,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // ----------- RUTA LOGIN ----------------
 Route::post('auth', [AuthController::class, 'login']);
+
+// ----------- RUTAS CREATE Y READ USERS SIN INICIAR SESION  ----------------
+Route::controller(UserController::class)->group(function () {
+    Route::post('user/create', 'create');
+    Route::get('user', 'read');
+});
+
+// ----------- RUTA READ PRODUCTS SIN INICIAR SESION ----------------
+Route::get('/', ProductController::class);
+
+// ----------- RUTA CREATE SELLERS SIN INICIAR SESION ----------------
+Route::post('seller/create', [SellerController::class, 'create']);

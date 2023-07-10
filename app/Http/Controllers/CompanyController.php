@@ -15,6 +15,7 @@ class CompanyController extends Controller
     private $comDireccion = "";
     private $comTelefono = "";
     private $comCorreo = "";
+    private $seller_id = "";
 
     /**
      * METODO DE URL READ DE COMPANY: GET
@@ -52,7 +53,7 @@ class CompanyController extends Controller
         $datos = json_decode($request->getContent());
 
         if (!isset($datos->comNombre) || !isset($datos->comHistoria) || !isset($datos->comImagen) || !isset($datos->comMunicipio) || 
-            !isset($datos->comDireccion) || !isset($datos->comTelefono) || !isset($datos->comCorreo)) {
+            !isset($datos->comDireccion) || !isset($datos->comTelefono) || !isset($datos->comCorreo) || !isset($datos->seller_id)) {
             return $_respuestas->error_400();
         } else {
             $this->comNombre = $datos->comNombre;
@@ -62,6 +63,7 @@ class CompanyController extends Controller
             $this->comDireccion = $datos->comDireccion;
             $this->comTelefono = $datos->comTelefono;
             $this->comCorreo = $datos->comCorreo;
+            $this->seller_id = $datos->seller_id;
             $_company->comNombre = $this->comNombre;
             $_company->comHistoria = $this->comHistoria;
             $_company->comImagen = $this->comImagen;
@@ -69,6 +71,7 @@ class CompanyController extends Controller
             $_company->comDireccion = $this->comDireccion;
             $_company->comTelefono = $this->comTelefono;
             $_company->comCorreo = $this->comCorreo;
+            $_company->seller_id = $this->seller_id;
             $_company->save();
 
             $respu = $_company;
@@ -136,6 +139,9 @@ class CompanyController extends Controller
             if (isset($datos->comCorreo)) {
                 $this->comCorreo = $datos->comCorreo;
             }
+            if (isset($datos->seller_id)) {
+                $this->seller_id = $datos->seller_id;
+            }
 
             $_company = Company::find($this->empresaId);
             $resultArray = array();
@@ -153,6 +159,7 @@ class CompanyController extends Controller
                 $_company->comDireccion = $this->comDireccion;
                 $_company->comTelefono = $this->comTelefono;
                 $_company->comCorreo = $this->comCorreo;
+                $_company->seller_id = $this->seller_id;
                 $_company->save();
 
                 $respu = $_company;

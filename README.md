@@ -1,3 +1,15 @@
+## CLONAR Y HACER FUNCIONAR PROYECTO:
+
+- Abrir git bash en la carpeta donde desea clonar el proyecto (xampp/htdocs)
+- Pegar el siguiente comando: git clone https://github.com/CarlosSantiagoGonzalezC/ProyectoCLH-Backend.git
+- Abrir el proyecto clonado en VSCode y abrir terminal (Ctrl + ñ)
+- Ejecutar el comando: composer install
+- Duplicar el archivo .env.example y cambiarle el nombre a solo .env, y configurar los datos de BD
+- Crear la BD segun el nombre de la configuracion .env
+- En la terminal ejecutar el comando: php artisan key:generate
+- Hacer las migraciones con: php artisan migrate
+- Correr el servidor: php artisan serve.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
