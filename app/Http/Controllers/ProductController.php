@@ -82,6 +82,16 @@ class ProductController extends Controller
             $this->proCantDisponible = $datos->proCantDisponible;
             $this->proPrecio = $datos->proPrecio;
             $this->proImagen = $datos->proImagen;
+            /**
+             * Guardar imagen en public/images/products
+             */
+            // if ($request->hasFile('proImagen')) {
+            //     $file = $request->file('proImagen');
+            //     $destinationPath = 'images/products/';
+            //     $fileName = time() . '-' . $file->getClientOriginalName();
+            //     $request->file('proImagen')->move($destinationPath, $fileName);
+            //     $this->proImagen = $destinationPath . $fileName;
+            // }
             $this->category_id = $datos->category_id;
             $this->user_id = $datos->user_id;
             $_product->proCodigo = $this->proCodigo;

@@ -59,6 +59,16 @@ class CompanyController extends Controller
             $this->comNombre = $datos->comNombre;
             $this->comHistoria = $datos->comHistoria;
             $this->comImagen = $datos->comImagen;
+            /**
+             * Guardar imagen en public/images/company
+             */
+            // if ($request->hasFile('comImagen')) {
+            //     $file = $request->file('comImagen');
+            //     $destinationPath = 'images/companies/';
+            //     $fileName = time() . '-' . $file->getClientOriginalName();
+            //     $request->file('comImagen')->move($destinationPath, $fileName);
+            //     $this->comImagen = $destinationPath . $fileName;
+            // }
             $this->comMunicipio = $datos->comMunicipio;
             $this->comDireccion = $datos->comDireccion;
             $this->comTelefono = $datos->comTelefono;
