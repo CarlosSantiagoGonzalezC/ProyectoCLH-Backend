@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API - Coffee Line Huila</title>
+    <style>
+        body {
+            color: black;
+        }
+
+        .container {
+            margin: 10px;
+            border: 1px solid #D0D0D0;
+            box-shadow: 0 0 8px #D0D0D0;
+        }
+
+        h1 {
+            color: #444;
+            background-color: transparent;
+            border-bottom: 1px solid #D0D0D0;
+            font-size: 24px;
+            font-weight: normal;
+            margin: 0 0 14px 0;
+            padding: 14px 15px 10px 15px;
+        }
+
+        h2 {
+            display: block;
+            font-size: 1.5em;
+            -webkit-margin-before: 0.83em;
+            -webkit-margin-after: 0.83em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+            font-weight: bold;
+        }
+
+        p {
+            display: block;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+        }
+
+        .divbody {
+            margin: 0 15px 0 15px;
+        }
+
+        p.divfooter {
+            text-align: right;
+            font-size: 16px;
+            border-top: 1px solid #D0D0D0;
+            line-height: 32px;
+            padding: 0 10px 0 10px;
+            margin: 20px 0 0 0;
+        }
+
+        code {
+            font-family: Consolas, Monaco, Courier New, Courier, monospace;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            border: 1px solid #D0D0D0;
+            color: #002166;
+            display: block;
+            margin: 14px 0 14px 0;
+            padding: 12px 10px 12px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>API - Coffee Line Huila Backend </h1>
+        <div class="divbody">
+            <h3>Rutas protegidas</h3>
+            <code>
+                Estas rutas necesitan de token para acceder a ellas
+                <br>
+                <ul>
+                    <li>/api/user/read</li>
+                    <li>/api/user/update</li>
+                    <li>/api/user/delete</li>
+                    <li>/api/seller/read</li>
+                    <li>/api/seller/update</li>
+                    <li>/api/seller/delete</li>
+                    <li>/api/company/read</li>
+                    <li>/api/company/create</li>
+                    <li>/api/company/update</li>
+                    <li>/api/company/delete</li>
+                    <li>/api/comment/read</li>
+                    <li>/api/comment/create</li>
+                    <li>/api/comment/update</li>
+                    <li>/api/comment/delete</li>
+                    <li>/api/category/getProductsOfCategory</li>
+                    <li>/api/category/read</li>
+                    <li>/api/category/create</li>
+                    <li>/api/category/update</li>
+                    <li>/api/category/delete</li>
+                </ul>
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Rutas desprotegidas</h3>
+            <code>
+                Estas rutas no necesitan de token para acceder a ellas
+                <br>
+                <ul>
+                    <li>/api/auth</li>
+                    <li>/api/user/create</li>
+                    <li>/api/user</li>
+                    <li>/api</li>
+                    <li>/api/seller/create</li>
+                </ul>
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Auth - login</h3>
+            <code>
+                POST  /api/auth
+                <br>
+                {
+                    <br>
+                    "useCorreo": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "usePassword": ""   -> REQUERIDO (Texto)
+                    <br>
+                }
+
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Usuarios</h3>
+            <code>
+                GET  /api/user
+                <br>
+                GET  /api/user?id=$idUsuario
+            </code>
+
+            <code>
+                POST  /api/user/create
+                <br>
+                {
+                    <br>
+                    "useNombres": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useApellidos": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useCorreo": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "usePassword": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useRol": "(Vendedor/Comprador)",   -> REQUERIDO (Texto)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/user/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "useNombres": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useApellidos": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useCorreo": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "usePassword": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "useRol":"(Vendedor/Comprador)",   -> REQUERIDO (Texto)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/user/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Información vendedores</h3>
+            <code>
+                GET  /api/seller/read
+                <br>
+                GET  /api/seller/read?id=$idVendedor
+            </code>
+
+            <code>
+                POST  /api/seller/create
+                <br>
+                {
+                    <br>
+                    "selDireccion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "selNumContacto": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "selPermiso": "",   -> REQUERIDO (Archivo)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/seller/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "selDireccion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "selNumContacto": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "selPermiso": "",   -> REQUERIDO (Archivo)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/seller/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Finca/Empresa</h3>
+            <code>
+                GET  /api/company/read
+                <br>
+                GET  /api/company/read?id=$idEmpresa
+            </code>
+
+            <code>
+                POST  /api/company/create
+                <br>
+                {
+                    <br>
+                    "comNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comHistoria": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comImagen": "",   -> REQUERIDO (Imagen)
+                    <br>
+                    "comMunicipio": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comDireccion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comTelefono": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comCorreo": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "seller_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/company/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "comNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comHistoria": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comImagen": "",   -> REQUERIDO (Imagen)
+                    <br>
+                    "comMunicipio": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comDireccion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comTelefono": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "comCorreo": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "seller_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/company/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Categoria</h3>
+            <code>
+                GET  /api/category/read
+                <br>
+                GET  /api/category/read?id=$idCategoria
+                <br>
+                GET  /api/category/getProductsOfCategory?id=$idCategoria
+            </code>
+
+            <code>
+                POST  /api/category/create
+                <br>
+                {
+                    <br>
+                    "catNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/category/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "catNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/category/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Producto</h3>
+            <code>
+                GET  /api/product/read
+                <br>
+                GET  /api/product/read?id=$idProducto
+            </code>
+
+            <code>
+                POST  /api/product/create
+                <br>
+                {
+                    <br>
+                    "proCodigo": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "proDescripcion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "proCantDisponible": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proPrecio": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proImagen": "",   -> REQUERIDO (Imagen)
+                    <br>
+                    "category_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/product/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "proCodigo": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proNombre": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "proDescripcion": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "proCantDisponible": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proPrecio": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "proImagen": "",   -> REQUERIDO (Imagen)
+                    <br>
+                    "category_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/product/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+        <div class="divbody">
+            <h3>Comentario</h3>
+            <code>
+                GET  /api/comment/read
+                <br>
+                GET  /api/comment/read?id=$idComentario
+            </code>
+
+            <code>
+                POST  /api/comment/create
+                <br>
+                {
+                    <br>
+                    "comTexto": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "product_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                PATCH  /api/comment/update
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                    "comTexto": "",   -> REQUERIDO (Texto)
+                    <br>
+                    "product_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                    "user_id": "",   -> REQUERIDO (Numerico)
+                    <br>
+                }
+
+            </code>
+            <code>
+                DELETE  /api/comment/delete
+                <br>
+                {
+                    <br>
+                    "id": ""   -> REQUERIDO (Numerico)
+                    <br>
+                }
+            </code>
+        </div>
+    </div>
+</body>
+
+</html>
