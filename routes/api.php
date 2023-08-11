@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
     // ----------- RUTAS CRUD USERS ----------------
     Route::controller(UserController::class)->group(function () {
         Route::delete('user/delete', 'delete');
@@ -72,7 +72,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('category/read', 'read');
         Route::patch('category/update', 'update');
     });
-});
+//});
 
 // ----------- RUTA LOGIN ----------------
 Route::post('auth', [AuthController::class, 'login']);
