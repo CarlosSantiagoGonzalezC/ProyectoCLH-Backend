@@ -58,6 +58,26 @@ class ProductController extends Controller
     }
 
     /**
+     * METODO DE URL PRODUCT PARA OBTENER PRODUCTOS SEGUN EL VENDEDOR: GET
+     *
+     * Se recibe por key (id=#) el id del vendedor y se trae la encontrada o se envia mensaje
+     * de error.
+     *
+     * @return json Datos con el result
+     **/
+    public function getProductsSeller()
+    {
+        $_respuestas = new respuestas;
+        if (isset($_GET["id"])) {
+            $vendedorId = $_GET["id"];
+            $products = Product::where('user_id', $vendedorId)->get();
+            return response()->json($products);
+        } else {
+            return $_respuestas->error_200("Debe añadir a la url una key donde este el id del vendedor!!");
+        }
+    }
+
+    /**
      * METODO DE URL CREATE DE PRODUCT: POST
      *
      * Se reciben los datos de entrada y se crea el producto
@@ -72,8 +92,10 @@ class ProductController extends Controller
         $_product = new Product();
         $datos = json_decode($request->getContent());
 
-        if (!isset($datos->proCodigo) || !isset($datos->proNombre) || !isset($datos->proDescripcion) || !isset($datos->proCantDisponible) || 
-            !isset($datos->proPrecio) || !isset($datos->proImagen) || !isset($datos->category_id) || !isset($datos->user_id)) {
+        if (
+            !isset($datos->proCodigo) || !isset($datos->proNombre) || !isset($datos->proDescripcion) || !isset($datos->proCantDisponible) ||
+            !isset($datos->proPrecio) || !isset($datos->proImagen) || !isset($datos->category_id) || !isset($datos->user_id)
+        ) {
             return $_respuestas->error_400();
         } else {
             $this->proCodigo = $datos->proCodigo;

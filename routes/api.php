@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('product/delete', 'delete');
         Route::get('product/read', 'read');
         Route::patch('product/update', 'update');
+        Route::get('product', 'getProductsSeller');
     });
 
     // ----------- RUTAS CRUD CATEGORIES ----------------
