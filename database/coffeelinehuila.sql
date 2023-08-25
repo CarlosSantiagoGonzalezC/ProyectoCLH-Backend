@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:33065
--- Tiempo de generación: 10-07-2023 a las 22:53:50
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 25-08-2023 a las 18:11:22
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ USE `coffeelinehuila`;
 
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `catNombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `catNombre` varchar(255) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -56,7 +56,7 @@ INSERT INTO `categories` (`id`, `catNombre`, `deleted_at`, `created_at`, `update
 
 CREATE TABLE `comments` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `comTexto` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comTexto` text NOT NULL,
   `product_id` bigint(20) UNSIGNED DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -71,7 +71,9 @@ CREATE TABLE `comments` (
 INSERT INTO `comments` (`id`, `comTexto`, `product_id`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'El mejor cafe que he probado', 1, 2, NULL, '2023-07-11 01:49:44', '2023-07-11 01:49:44'),
 (2, 'Puede mejorar un poco', 4, 2, NULL, '2023-07-11 01:50:08', '2023-07-11 01:51:00'),
-(3, 'Muy bueno', 3, 2, '2023-07-11 01:51:32', '2023-07-11 01:50:30', '2023-07-11 01:51:32');
+(3, 'Muy bueno', 3, 2, '2023-07-11 01:51:32', '2023-07-11 01:50:30', '2023-07-11 01:51:32'),
+(4, 'Excelente', 1, 2, NULL, NULL, NULL),
+(5, 'Perfecto, muy satisfecho', 3, 1, NULL, '2023-08-25 21:07:14', '2023-08-25 21:07:14');
 
 -- --------------------------------------------------------
 
@@ -81,13 +83,13 @@ INSERT INTO `comments` (`id`, `comTexto`, `product_id`, `user_id`, `deleted_at`,
 
 CREATE TABLE `companies` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `comNombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comHistoria` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comImagen` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comMunicipio` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comDireccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comTelefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comCorreo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comNombre` varchar(255) NOT NULL,
+  `comHistoria` text NOT NULL,
+  `comImagen` text NOT NULL,
+  `comMunicipio` varchar(255) NOT NULL,
+  `comDireccion` varchar(255) NOT NULL,
+  `comTelefono` varchar(255) NOT NULL,
+  `comCorreo` varchar(255) NOT NULL,
   `seller_id` bigint(20) UNSIGNED DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -99,8 +101,7 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `comNombre`, `comHistoria`, `comImagen`, `comMunicipio`, `comDireccion`, `comTelefono`, `comCorreo`, `seller_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Alma Café', 'Desde 1989 produciendo el mejor Café', 'v5re5vr8v8rvrv4rv45', 'Neiva', 'Cra 52 #22-10', '3256552120', 'almacafe1@gmail.com', 1, NULL, '2023-07-11 01:22:39', '2023-07-11 01:22:39'),
-(2, 'Cafetines Huila', 'Nuestra historia es la mejor como nuestro producto', 'bt2brb4rv4r4vr', 'Pitalito', 'Cra 10 #2-18', '3125526230', 'cafetines50@gmail.com', 1, NULL, '2023-07-11 01:23:38', '2023-07-11 01:23:38');
+(1, 'Alma Café', 'Desde 1989 produciendo Lorem ipsum dolor sit amet consectetur, adipisicing elit. In ipsum deserunt dolorem soluta aliquam fugiat ut debitis ea molestias doloribus nam, perferendis temporibus laudantium error reiciendis recusandae quam quas. A.', 'v5re5vr8v8rvrv4rv45', 'Neiva', 'Cra 52 #22-10', '3256552120', 'almacafe1@gmail.com', 1, NULL, '2023-07-11 01:22:39', '2023-07-11 01:22:39');
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,7 @@ INSERT INTO `companies` (`id`, `comNombre`, `comHistoria`, `comImagen`, `comMuni
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -137,9 +138,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ordDireccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ordCiudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ordDepartamento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ordDireccion` varchar(255) NOT NULL,
+  `ordCiudad` varchar(255) NOT NULL,
+  `ordDepartamento` varchar(255) NOT NULL,
   `ordTotal` int(11) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -154,11 +155,11 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -170,7 +171,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'auth_token', '80a191b0a1d69bef3351252530e7e4ee4e0c4c53f6f06209b00437e573a90726', '[\"*\"]', '2023-07-11 01:51:41', NULL, '2023-07-11 01:09:56', '2023-07-11 01:51:41');
+(1, 'App\\Models\\User', 1, 'auth_token', '80a191b0a1d69bef3351252530e7e4ee4e0c4c53f6f06209b00437e573a90726', '[\"*\"]', '2023-07-11 01:51:41', NULL, '2023-07-11 01:09:56', '2023-07-11 01:51:41'),
+(2, 'App\\Models\\User', 1, 'auth_token', '04e4c7af68b1e8f561321f33bd6c1838baaf805d69c94cca0185fb238ccd4e67', '[\"*\"]', NULL, NULL, '2023-08-25 19:13:22', '2023-08-25 19:13:22');
 
 -- --------------------------------------------------------
 
@@ -181,11 +183,11 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `proCodigo` int(11) NOT NULL,
-  `proNombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `proDescripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proNombre` varchar(255) NOT NULL,
+  `proDescripcion` text NOT NULL,
   `proCantDisponible` int(11) NOT NULL,
   `proPrecio` int(11) NOT NULL,
-  `proImagen` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proImagen` text NOT NULL,
   `category_id` bigint(20) UNSIGNED DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -198,10 +200,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `proCodigo`, `proNombre`, `proDescripcion`, `proCantDisponible`, `proPrecio`, `proImagen`, `category_id`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 458, 'Café CLH', 'El mejor cafe del mercado', 6, 32500, 'grgds4gr64hrhr4', 1, 1, NULL, '2023-07-11 01:36:54', '2023-07-11 01:36:54'),
+(1, 458, 'Café CLH', 'El mejor cafe del mercado', 1, 32500, 'grgds4gr64hrhr4', 1, 1, NULL, '2023-07-11 01:36:54', '2023-07-11 01:36:54'),
 (2, 985, 'Café algecireño', 'No te arrepentiras de adquirirlo', 2, 55900, 'vr5rv9rg5g', 3, 1, '2023-07-11 01:47:49', '2023-07-11 01:37:46', '2023-07-11 01:47:49'),
 (3, 854, 'Café tostao', 'El mas popular del mercado', 14, 45500, 'frgrgr5g5rg', 2, 1, NULL, '2023-07-11 01:38:28', '2023-07-11 01:39:41'),
-(4, 845, 'Café huilense', 'La gran historia lo respalda', 5, 22890, 'frf5rfr4grg', 2, 1, NULL, '2023-07-11 01:39:08', '2023-07-11 01:47:24');
+(4, 845, 'Café huilense', 'La gran historia lo respalda', 5, 22890, 'frf5rfr4grg', 2, 1, NULL, '2023-07-11 01:39:08', '2023-07-11 01:47:24'),
+(5, 541, 'Café chirri', 'Del chirri pal mundo', 14, 65500, '', 2, 1, NULL, '2023-08-25 18:12:19', '2023-08-25 18:12:19');
 
 -- --------------------------------------------------------
 
@@ -225,9 +228,9 @@ CREATE TABLE `purchases` (
 
 CREATE TABLE `sellers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `selDireccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `selNumContacto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `selPermiso` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `selDireccion` varchar(255) NOT NULL,
+  `selNumContacto` varchar(255) NOT NULL,
+  `selPermiso` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -250,11 +253,11 @@ INSERT INTO `sellers` (`id`, `selDireccion`, `selNumContacto`, `selPermiso`, `us
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `useNombres` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `useApellidos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `useCorreo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `usePassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `useRol` enum('Vendedor','Comprador') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `useNombres` varchar(255) NOT NULL,
+  `useApellidos` varchar(255) NOT NULL,
+  `useCorreo` varchar(255) NOT NULL,
+  `usePassword` varchar(255) NOT NULL,
+  `useRol` enum('Vendedor','Comprador') NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -357,7 +360,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `companies`
@@ -381,13 +384,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `purchases`
