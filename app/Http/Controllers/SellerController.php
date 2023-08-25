@@ -34,6 +34,26 @@ class SellerController extends Controller
     }
 
     /**
+     * METODO DE URL SELLER PARA OBTENER VENDEDOR SEGUN EL USUARIO: GET
+     *
+     * Se recibe por key (id=#) el id del usuario y se trae la encontrada o se envia mensaje
+     * de error.
+     *
+     * @return json Datos con el result
+     **/
+    public function getSellerIdUser()
+    {
+        $_respuestas = new respuestas;
+        if (isset($_GET["id"])) {
+            $usuarioId = $_GET["id"];
+            $seller = Seller::where('user_id', $usuarioId)->get();
+            return response()->json($seller);
+        } else {
+            return $_respuestas->error_200("Debe añadir a la url una key donde este el id del usuario!!");
+        }
+    }
+
+    /**
      * METODO DE URL CREATE DE SELLER: POST
      *
      * Se reciben los datos de entrada y se crea el vendedor

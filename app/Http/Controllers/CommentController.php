@@ -33,6 +33,26 @@ class CommentController extends Controller
     }
 
     /**
+     * METODO DE URL COMMENT PARA OBTENER COMENTARIOS SEGUN EL PRODUCTO: GET
+     *
+     * Se recibe por key (id=#) el id del producto y se trae la encontrada o se envia mensaje
+     * de error.
+     *
+     * @return json Datos con el result
+     **/
+    public function getCommentsProduct()
+    {
+        $_respuestas = new respuestas;
+        if (isset($_GET["id"])) {
+            $productoId = $_GET["id"];
+            $comments = Comment::where('product_id', $productoId)->get();
+            return response()->json($comments);
+        } else {
+            return $_respuestas->error_200("Debe añadir a la url una key donde este el id del producto!!");
+        }
+    }
+
+    /**
      * METODO DE URL CREATE DE COMMENT: POST
      *
      * Se reciben los datos de entrada y se crea el comentario

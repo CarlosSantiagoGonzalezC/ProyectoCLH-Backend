@@ -38,6 +38,26 @@ class CompanyController extends Controller
     }
 
     /**
+     * METODO DE URL COMPANY PARA OBTENER EMPRESA SEGUN EL VENDEDOR: GET
+     *
+     * Se recibe por key (id=#) el id del vendedor y se trae la encontrada o se envia mensaje
+     * de error.
+     *
+     * @return json Datos con el result
+     **/
+    public function getCompanyIdSeller()
+    {
+        $_respuestas = new respuestas;
+        if (isset($_GET["id"])) {
+            $vendedorId = $_GET["id"];
+            $company = Company::where('seller_id', $vendedorId)->get();
+            return response()->json($company);
+        } else {
+            return $_respuestas->error_200("Debe añadir a la url una key donde este el id del vendedor!!");
+        }
+    }
+
+    /**
      * METODO DE URL CREATE DE COMPANY: POST
      *
      * Se reciben los datos de entrada y se crea la empresa
@@ -52,8 +72,10 @@ class CompanyController extends Controller
         $_company = new Company();
         $datos = json_decode($request->getContent());
 
-        if (!isset($datos->comNombre) || !isset($datos->comHistoria) || !isset($datos->comImagen) || !isset($datos->comMunicipio) || 
-            !isset($datos->comDireccion) || !isset($datos->comTelefono) || !isset($datos->comCorreo) || !isset($datos->seller_id)) {
+        if (
+            !isset($datos->comNombre) || !isset($datos->comHistoria) || !isset($datos->comImagen) || !isset($datos->comMunicipio) ||
+            !isset($datos->comDireccion) || !isset($datos->comTelefono) || !isset($datos->comCorreo) || !isset($datos->seller_id)
+        ) {
             return $_respuestas->error_400();
         } else {
             $this->comNombre = $datos->comNombre;

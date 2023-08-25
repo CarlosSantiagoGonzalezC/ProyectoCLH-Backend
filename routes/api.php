@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('seller/delete', 'delete');
         Route::get('seller/read', 'read');
         Route::patch('seller/update', 'update');
+        Route::get('seller', 'getSellerIdUser');
     });
 
     // ----------- RUTAS CRUD COMPANIES ----------------
@@ -46,6 +47,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('company/delete', 'delete');
         Route::get('company/read', 'read');
         Route::patch('company/update', 'update');
+        Route::get('company', 'getCompanyIdSeller');
     });
 
     // ----------- RUTAS CRUD COMMENTS ----------------
@@ -54,6 +56,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('comment/delete', 'delete');
         Route::get('comment/read', 'read');
         Route::patch('comment/update', 'update');
+        Route::get('comment', 'getCommentsProduct');
     });
 
     // ----------- RUTAS CRUD PRODUCTS ----------------

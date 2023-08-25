@@ -103,7 +103,7 @@ class ProductController extends Controller
             $this->proDescripcion = $datos->proDescripcion;
             $this->proCantDisponible = $datos->proCantDisponible;
             $this->proPrecio = $datos->proPrecio;
-            $this->proImagen = $datos->proImagen;
+            // $this->proImagen = $datos->proImagen;
             /**
              * Guardar imagen en public/images/products
              */
