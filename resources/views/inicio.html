@@ -82,22 +82,30 @@
                     <li>/api/user/read</li>
                     <li>/api/user/update</li>
                     <li>/api/user/delete</li>
+                    <li>/api/seller</li>
                     <li>/api/seller/read</li>
                     <li>/api/seller/update</li>
                     <li>/api/seller/delete</li>
+                    <li>/api/company</li>
                     <li>/api/company/read</li>
                     <li>/api/company/create</li>
                     <li>/api/company/update</li>
                     <li>/api/company/delete</li>
+                    <li>/api/comment</li>
                     <li>/api/comment/read</li>
                     <li>/api/comment/create</li>
                     <li>/api/comment/update</li>
                     <li>/api/comment/delete</li>
-                    <li>/api/category/getProductsOfCategory</li>
+                    <li>/api/category</li>
                     <li>/api/category/read</li>
                     <li>/api/category/create</li>
                     <li>/api/category/update</li>
                     <li>/api/category/delete</li>
+                    <li>/api/product</li>
+                    <li>/api/product/read</li>
+                    <li>/api/product/create</li>
+                    <li>/api/product/update</li>
+                    <li>/api/product/delete</li>
                 </ul>
             </code>
         </div>
@@ -189,6 +197,8 @@
         <div class="divbody">
             <h3>Información vendedores</h3>
             <code>
+                GET  /api/seller
+                <br>
                 GET  /api/seller/read
                 <br>
                 GET  /api/seller/read?id=$idVendedor
@@ -241,6 +251,8 @@
         <div class="divbody">
             <h3>Finca/Empresa</h3>
             <code>
+                GET  /api/company
+                <br>
                 GET  /api/company/read
                 <br>
                 GET  /api/company/read?id=$idEmpresa
@@ -309,6 +321,8 @@
         <div class="divbody">
             <h3>Categoria</h3>
             <code>
+                GET  /api/category
+                <br>
                 GET  /api/category/read
                 <br>
                 GET  /api/category/read?id=$idCategoria
@@ -351,6 +365,8 @@
         <div class="divbody">
             <h3>Producto</h3>
             <code>
+                GET  /api/product
+                <br>
                 GET  /api/product/read
                 <br>
                 GET  /api/product/read?id=$idProducto
@@ -419,6 +435,8 @@
         <div class="divbody">
             <h3>Comentario</h3>
             <code>
+                GET  /api/comment
+                <br>
                 GET  /api/comment/read
                 <br>
                 GET  /api/comment/read?id=$idComentario
