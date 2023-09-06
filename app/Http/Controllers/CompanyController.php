@@ -80,7 +80,7 @@ class CompanyController extends Controller
         } else {
             $this->comNombre = $datos->comNombre;
             $this->comHistoria = $datos->comHistoria;
-            $this->comImagen = $datos->comImagen;
+            $this->comImagen = base64_encode($datos->comImagen);
             /**
              * Guardar imagen en public/images/company
              */
@@ -157,7 +157,7 @@ class CompanyController extends Controller
                 $this->comHistoria = $datos->comHistoria;
             }
             if (isset($datos->comImagen)) {
-                $this->comImagen = $datos->comImagen;
+                $this->comImagen = base64_encode($datos->comImagen);
             }
             if (isset($datos->comMunicipio)) {
                 $this->comMunicipio = $datos->comMunicipio;

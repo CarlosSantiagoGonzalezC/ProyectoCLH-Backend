@@ -77,7 +77,7 @@ class SellerController extends Controller
             $this->user_id = $datos->user_id;
             $_seller->selDireccion = $this->selDireccion;
             $_seller->selNumContacto = $this->selNumContacto;
-            $_seller->selPermiso = $this->selPermiso;
+            // $_seller->selPermiso = $this->selPermiso;
             $_seller->user_id = $this->user_id;
             $_seller->save();
 

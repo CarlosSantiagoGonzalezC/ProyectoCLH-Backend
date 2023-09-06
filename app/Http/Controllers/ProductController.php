@@ -94,7 +94,7 @@ class ProductController extends Controller
 
         if (
             !isset($datos->proCodigo) || !isset($datos->proNombre) || !isset($datos->proDescripcion) || !isset($datos->proCantDisponible) ||
-            !isset($datos->proPrecio) || !isset($datos->proImagen) || !isset($datos->category_id) || !isset($datos->user_id)
+            !isset($datos->proPrecio) || !isset($datos->category_id) || !isset($datos->user_id)
         ) {
             return $_respuestas->error_400();
         } else {
@@ -103,17 +103,7 @@ class ProductController extends Controller
             $this->proDescripcion = $datos->proDescripcion;
             $this->proCantDisponible = $datos->proCantDisponible;
             $this->proPrecio = $datos->proPrecio;
-            // $this->proImagen = $datos->proImagen;
-            /**
-             * Guardar imagen en public/images/products
-             */
-            // if ($request->hasFile('proImagen')) {
-            //     $file = $request->file('proImagen');
-            //     $destinationPath = 'images/products/';
-            //     $fileName = time() . '-' . $file->getClientOriginalName();
-            //     $request->file('proImagen')->move($destinationPath, $fileName);
-            //     $this->proImagen = $destinationPath . $fileName;
-            // }
+            $this->proImagen = $datos->proImagen;
             $this->category_id = $datos->category_id;
             $this->user_id = $datos->user_id;
             $_product->proCodigo = $this->proCodigo;
@@ -186,7 +176,7 @@ class ProductController extends Controller
                 $this->proPrecio = $datos->proPrecio;
             }
             if (isset($datos->proImagen)) {
-                $this->proImagen = $datos->proImagen;
+                $this->proImagen = base64_encode($datos->proImagen);
             }
             if (isset($datos->category_id)) {
                 $this->category_id = $datos->category_id;
