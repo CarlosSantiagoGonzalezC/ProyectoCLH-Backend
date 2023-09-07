@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('proDescripcion');
             $table->integer('proCantDisponible');
             $table->integer('proPrecio');
-            $table->text('proImagen');
+            $table->longText('proImagen');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')
                     ->onDelete('set null');

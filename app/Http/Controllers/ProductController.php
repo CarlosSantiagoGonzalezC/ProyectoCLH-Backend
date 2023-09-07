@@ -176,7 +176,7 @@ class ProductController extends Controller
                 $this->proPrecio = $datos->proPrecio;
             }
             if (isset($datos->proImagen)) {
-                $this->proImagen = base64_encode($datos->proImagen);
+                $this->proImagen = $datos->proImagen;
             }
             if (isset($datos->category_id)) {
                 $this->category_id = $datos->category_id;

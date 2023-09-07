@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('comNombre');
             $table->text('comHistoria');
-            $table->text('comImagen');
+            $table->longText('comImagen');
             $table->string('comMunicipio');
             $table->string('comDireccion');
             $table->string('comTelefono');
