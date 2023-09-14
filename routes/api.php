@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // ----------- RUTAS CRUD USERS ----------------
     Route::controller(UserController::class)->group(function () {
         Route::delete('user/delete', 'delete');
@@ -63,20 +63,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::controller(ProductController::class)->group(function () {
         Route::post('product/create', 'create');
         Route::delete('product/delete', 'delete');
-        Route::get('product/read', 'read');
         Route::patch('product/update', 'update');
         Route::get('product', 'getProductsSeller');
     });
 
     // ----------- RUTAS CRUD CATEGORIES ----------------
     Route::controller(CategoryController::class)->group(function () {
-        Route::get('category', 'getProductsOfCategory');
         Route::post('category/create', 'create');
         Route::delete('category/delete', 'delete');
-        Route::get('category/read', 'read');
         Route::patch('category/update', 'update');
-    });
-//});
+   });
+});
 
 // ----------- RUTA LOGIN ----------------
 Route::post('auth', [AuthController::class, 'login']);
@@ -87,8 +84,17 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user', 'read');
 });
 
-// ----------- RUTA READ PRODUCTS SIN INICIAR SESION ----------------
-Route::get('/', ProductController::class);
+// ----------- RUTA PRODUCTS SIN INICIAR SESION ----------------
+Route::controller(ProductController::class)->group(function () {
+    Route::get('product/read', 'read');
+    Route::get('/');
+});
+
+// ----------- RUTAS CATEGORIES SIN INICIAR SESION ----------------
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('category', 'getProductsOfCategory');
+    Route::get('category/read', 'read');
+});
 
 // ----------- RUTA CREATE SELLERS SIN INICIAR SESION ----------------
 Route::post('seller/create', [SellerController::class, 'create']);
