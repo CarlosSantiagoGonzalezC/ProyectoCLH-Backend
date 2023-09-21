@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Purchase extends Model
 {
     use SoftDeletes, HasFactory;
+
+    public function orders(){
+        return $this->belongsTo(Order::class);
+    }
 }

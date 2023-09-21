@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->integer('purTotal');
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders')
+                ->onDelete('set null');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')
+                ->onDelete('set null');
+            $table->integer('total');
+            $table->integer('cantidad');
             $table->softDeletes();
             $table->timestamps();
         });
