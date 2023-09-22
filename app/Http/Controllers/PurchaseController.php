@@ -16,7 +16,7 @@ class PurchaseController extends Controller
 
     public function create(Request $request)
     {
-        $respuestas = new respuestas;
+        $respuestas = new respuestas();
         $request->validate([
             'ordDireccion' => 'required',
             'ordCiudad' => 'required',
@@ -31,7 +31,30 @@ class PurchaseController extends Controller
             'carrito.required' => $respuestas->error_400(),
         ]);
 
-        
+        $order = new Order();
+
+        $order->ordDireccion = $request->input('ordDireccion');
+        $order->ordCiudad = $request->input('ordCiudad');
+        $order->ordDepartamento = $request->input('ordDireccion');
+        $order->ordTotal = $request->input('ordTotal');
+
+        $order->save();
+
+        $carrito = $request->input('carrito');
+
+        $compras = [];
+
+        foreach ($carrito as $compra) {
+            $purchase = new Purchase();
+
+            $purchase->product_id = $compra->id;
+            $purchase->total = $compra->id;
+            $purchase->cantidad = $compra->id;
+
+            $compras[] = $purchase;
+        }
+
+        $order->purchases()->saveMany($compras);
     }
 
     public function updated(Request $request)
