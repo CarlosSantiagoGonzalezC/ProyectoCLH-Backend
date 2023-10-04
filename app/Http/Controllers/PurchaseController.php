@@ -17,7 +17,7 @@ class PurchaseController extends Controller
 
     public function create(Request $request)
     {
-        $respuestas = new respuestas;
+        $respuestas = new respuestas();
         $request->validate([
             'ordDireccion' => 'required',
             'ordCiudad' => 'required',
@@ -33,6 +33,7 @@ class PurchaseController extends Controller
         ]);
 
         $order = new Order();
+
         $carrito = $request->input("carrito");
 
         $order->ordDireccion = $request->ordDireccion;
