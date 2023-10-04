@@ -13,4 +13,9 @@ class Order extends Model
     public function purchases() {
         return $this->hasMany(Purchase::class);
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

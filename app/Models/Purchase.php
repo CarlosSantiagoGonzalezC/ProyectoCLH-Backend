@@ -13,4 +13,9 @@ class Purchase extends Model
     public function orders(){
         return $this->belongsTo(Order::class);
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
