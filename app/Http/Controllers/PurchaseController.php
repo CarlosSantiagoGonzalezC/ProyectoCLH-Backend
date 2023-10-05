@@ -19,12 +19,14 @@ class PurchaseController extends Controller
     {
         $respuestas = new respuestas();
         $request->validate([
+            'id' => 'required',
             'ordDireccion' => 'required',
             'ordCiudad' => 'required',
             'ordDepartamento' => 'required',
             'ordTotal' => 'required',
             'carrito' => 'required',
         ], [
+            'id.required' => $respuestas->error_400(),
             'ordDireccion.required' => $respuestas->error_400(),
             'ordCiudad.required' => $respuestas->error_400(),
             'ordDepartamento.required' => $respuestas->error_400(),
@@ -36,6 +38,7 @@ class PurchaseController extends Controller
 
         $carrito = $request->input("carrito");
 
+        $order->user_id = $request->id;
         $order->ordDireccion = $request->ordDireccion;
         $order->ordCiudad = $request->ordCiudad;
         $order->ordDepartamento = $request->ordDepartamento;
@@ -51,6 +54,7 @@ class PurchaseController extends Controller
             $purchase->product_id = $product["id"];
             $purchase->cantidad = $product["cantidad"];
             $purchase->total = $product["total"];
+            $purchase->user_id = $request->id;
 
             $order->purchases()->save($purchase);
 

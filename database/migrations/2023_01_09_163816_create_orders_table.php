@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('set null');
             $table->string('ordDireccion');
             $table->string('ordCiudad');
             $table->string('ordDepartamento');

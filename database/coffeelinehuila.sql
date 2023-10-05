@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `comments_user_id_foreign` (`user_id`),
   CONSTRAINT `comments_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE SET NULL,
   CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla coffeelinehuila.comments: ~0 rows (aproximadamente)
 
@@ -83,26 +83,27 @@ INSERT INTO `companies` (`id`, `comNombre`, `comHistoria`, `comImagen`, `comMuni
 -- Volcando estructura para tabla coffeelinehuila.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla coffeelinehuila.migrations: ~9 rows (aproximadamente)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-	(10, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-	(11, '2023_01_01_000000_create_users_table', 1),
-	(12, '2023_01_02_161422_create_sellers_table', 1),
-	(13, '2023_01_03_162243_create_companies_table', 1),
-	(14, '2023_01_04_154841_create_categories_table', 1),
-	(15, '2023_01_05_154138_create_products_table', 1),
-	(16, '2023_01_06_162711_create_comments_table', 1),
-	(17, '2023_01_09_163816_create_orders_table', 1),
-	(18, '2023_01_10_155637_create_purchases_table', 1);
+	(19, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+	(20, '2023_01_01_000000_create_users_table', 1),
+	(21, '2023_01_02_161422_create_sellers_table', 1),
+	(22, '2023_01_03_162243_create_companies_table', 1),
+	(23, '2023_01_04_154841_create_categories_table', 1),
+	(24, '2023_01_05_154138_create_products_table', 1),
+	(25, '2023_01_06_162711_create_comments_table', 1),
+	(26, '2023_01_09_163816_create_orders_table', 1),
+	(27, '2023_01_10_155637_create_purchases_table', 1);
 
 -- Volcando estructura para tabla coffeelinehuila.orders
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned DEFAULT NULL,
   `ordDireccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordCiudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordDepartamento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -110,7 +111,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `orders_user_id_foreign` (`user_id`),
+  CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla coffeelinehuila.orders: ~0 rows (aproximadamente)
@@ -130,13 +133,9 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla coffeelinehuila.personal_access_tokens: ~3 rows (aproximadamente)
-INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-	(1, 'App\\Models\\User', 1, 'auth_token', '2f89a6990afed11a1464bd4f446ab589a986ca30aa1211d1c83319e69b51f39c', '["*"]', NULL, NULL, '2023-10-05 03:06:23', '2023-10-05 03:06:23'),
-	(2, 'App\\Models\\User', 2, 'auth_token', '5123ca494bc68e5723f1d09612d9e902ea14e7e9c1417a8130be74ab0982e2d1', '["*"]', '2023-10-05 03:30:55', NULL, '2023-10-05 03:12:07', '2023-10-05 03:30:55'),
-	(3, 'App\\Models\\User', 3, 'auth_token', '8d6512de2c71ede9e4b6c7eebeb896981a2e794bea0bc5c7e040ebc871904f21', '["*"]', NULL, NULL, '2023-10-05 03:32:12', '2023-10-05 03:32:12');
+-- Volcando datos para la tabla coffeelinehuila.personal_access_tokens: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla coffeelinehuila.products
 CREATE TABLE IF NOT EXISTS `products` (

@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -72,6 +73,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('category/create', 'create');
         Route::delete('category/delete', 'delete');
         Route::patch('category/update', 'update');
+   });
+
+   Route::controller(PurchaseController::class)->group(function () {
+        Route::post('purchase/create', 'create');
    });
 });
 
