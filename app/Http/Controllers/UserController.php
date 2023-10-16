@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Mail\PasswordMail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -50,8 +53,10 @@ class UserController extends Controller
         $_user = new User();
         $datos = json_decode($request->getContent());
 
-        if (!isset($datos->useNombres) || !isset($datos->useApellidos) || !isset($datos->useCorreo) || !isset($datos->usePassword) || 
-            !isset($datos->useRol)) {
+        if (
+            !isset($datos->useNombres) || !isset($datos->useApellidos) || !isset($datos->useCorreo) || !isset($datos->usePassword) ||
+            !isset($datos->useRol)
+        ) {
             return $_respuestas->error_400();
         } else {
             $this->useNombres = $datos->useNombres;
@@ -119,12 +124,6 @@ class UserController extends Controller
             if (isset($datos->useCorreo)) {
                 $this->useCorreo = $datos->useCorreo;
             }
-            if (isset($datos->usePassword)) {
-                $this->usePassword = $datos->usePassword;
-            }
-            if (isset($datos->useRol)) {
-                $this->useRol = $datos->useRol;
-            }
 
             $_user = User::find($this->usuarioId);
             $resultArray = array();
@@ -138,8 +137,6 @@ class UserController extends Controller
                 $_user->useNombres = $this->useNombres;
                 $_user->useApellidos = $this->useApellidos;
                 $_user->useCorreo = $this->useCorreo;
-                $_user->usePassword = Hash::make($this->usePassword);
-                $_user->useRol = $this->useRol;
                 $_user->save();
 
                 $respu = $_user;
@@ -190,6 +187,136 @@ class UserController extends Controller
                 "id" => $this->usuarioId
             );
             return $respuesta;
+        }
+    }
+
+    /**
+     * METODO PARA EDITAR PASSWORD DE USER: PATCH
+     *
+     * Se reciben los datos de entrada y por medio del id se actualiza el password
+     * del usuario
+     *
+     * @param Request $request Datos de entrada
+     * @return json Datos con el id del usuario actualizado
+     **/
+    public function editPassword(Request $request)
+    {
+        $_respuestas = new respuestas;
+
+        $datos = json_decode($request->getContent());
+        if (!isset($datos->id) || !isset($datos->passwordActual) || !isset($datos->passwordNueva)) {
+            // Error en los campos
+            return $_respuestas->error_401();
+        } else {
+            $usuarioId = $datos->id;
+            $passwordActual = $datos->passwordActual;
+            $passwordNueva = $datos->passwordNueva;
+
+            $_user = User::find($usuarioId);
+            $resultArray = array();
+
+            foreach ($_user as $key) {
+                $resultArray[] = $key;
+            }
+
+            $datos = $this->convertirUtf8($resultArray);
+
+            if ($datos) {
+                // Verificar si la contraseña es igual
+                if (Hash::check($passwordActual, $_user->usePassword)) {
+                    $_user->usePassword = Hash::make($passwordNueva);
+                    $_user->save();
+
+                    $respu = $_user;
+                    if ($respu) {
+                        $resp = $respu;
+                    } else {
+                        $resp = 0;
+                    }
+
+                    if ($resp) {
+                        $respuesta = $_respuestas->response;
+                        $respuesta["result"] = array(
+                            "id" => $usuarioId
+                        );
+                        return $respuesta;
+                    } else {
+                        return $_respuestas->error_500();
+                    }
+                } else {
+                    //Contraseña incorrecta
+                    return $_respuestas->error_200("La contraseña es invalida!!");
+                }
+            } else {
+                // Si no existe el usuario
+                return $_respuestas->error_200("El usuario no existe!!");
+            }
+        }
+    }
+
+    /**
+     * METODO PARA RECUPERAR CONTRASEÑA DE USER: PATCH
+     *
+     * Se reciben los datos de entrada y por medio del id se actualiza el password
+     * del usuario
+     *
+     * @param Request $request Datos de entrada
+     * @return json Datos con el id del usuario actualizado
+     **/
+    public function recoverPassword(Request $request)
+    {
+        $_respuestas = new respuestas;
+
+        $datos = json_decode($request->getContent());
+        if (!isset($datos->useCorreo)) {
+            // Error en los campos
+            return $_respuestas->error_401();
+        } else {
+            $correo = $datos->useCorreo;
+
+            $_user = User::where('useCorreo', $correo)->firstOrFail();
+            $resultArray = array();
+
+            foreach ($_user as $key) {
+                $resultArray[] = $key;
+            }
+
+            $data = $this->convertirUtf8($resultArray);
+
+            if ($data) {
+                $passwordNueva = Str::random(10);
+                $_user->usePassword = Hash::make($passwordNueva);
+                $_user->save();
+
+                $respu = $_user;
+                if ($respu) {
+                    $resp = $respu;
+                } else {
+                    $resp = 0;
+                }
+
+                if ($resp) {
+                    $contenido = "Su nueva contraseña es la siguiente: " . $passwordNueva;
+                    $datos = [
+                        'titulo' => 'Correo de recuperación de contraseña',
+                        'contenido' => $contenido
+                    ];
+
+                    Mail::to($correo)->send(new PasswordMail($datos));
+
+                    $respuesta = $_respuestas->response;
+                    $respuesta["result"] = array(
+                        "id" => $_user->id,
+                        "password" => $passwordNueva
+                    );
+                    return $respuesta;
+                } else {
+                    return $_respuestas->error_500();
+                }
+            } else {
+                // Si no existe el usuario
+                return $_respuestas->error_200("El usuario $correo no existe!!");
+            }
         }
     }
 

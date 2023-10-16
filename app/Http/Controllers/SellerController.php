@@ -134,9 +134,6 @@ class SellerController extends Controller
             if (isset($datos->selPermiso)) {
                 $this->selPermiso = $datos->selPermiso;
             }
-            if (isset($datos->user_id)) {
-                $this->user_id = $datos->user_id;
-            }
 
             $_seller = Seller::find($this->vendedorId);
             $resultArray = array();
@@ -150,7 +147,6 @@ class SellerController extends Controller
                 $_seller->selDireccion = $this->selDireccion;
                 $_seller->selNumContacto = $this->selNumContacto;
                 $_seller->selPermiso = $this->selPermiso;
-                $_seller->user_id = $this->user_id;
                 $_seller->save();
 
                 $respu = $_seller;

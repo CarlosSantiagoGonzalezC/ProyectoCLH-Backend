@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('user/delete', 'delete');
         Route::get('user/read', 'read');
         Route::patch('user/update', 'update');
+        Route::patch('user/editPassword', 'editPassword');
     });
 
     // ----------- RUTAS CRUD SELLERS ----------------
@@ -87,6 +88,7 @@ Route::post('auth', [AuthController::class, 'login']);
 Route::controller(UserController::class)->group(function () {
     Route::post('user/create', 'create');
     Route::get('user', 'read');
+    Route::patch('user/recoverPassword', 'recoverPassword');
 });
 
 // ----------- RUTA PRODUCTS SIN INICIAR SESION ----------------
