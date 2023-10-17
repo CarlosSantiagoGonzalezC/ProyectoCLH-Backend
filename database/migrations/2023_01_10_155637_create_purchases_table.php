@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id')->nullable();
-            $table->foreign('order_id')->references('id')->on('orders')
-                ->onDelete('set null');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('set null');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')
                 ->onDelete('set null');
+            $table->longText('comprobantePago');
+            $table->enum('estado', ['Confirmado', 'Por confirmar'])->default('Por confirmar');
             $table->integer('total');
             $table->integer('cantidad');
             $table->softDeletes();

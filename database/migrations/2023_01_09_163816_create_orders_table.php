@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('ordDireccion');
             $table->string('ordCiudad');
             $table->string('ordDepartamento');
+            $table->enum('ordEstado', ['Entregado', 'Por entregar'])->default('Por entregar');
             $table->integer('ordTotal');
             $table->softDeletes();
             $table->timestamps();

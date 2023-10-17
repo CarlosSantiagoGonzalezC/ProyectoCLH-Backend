@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellerController;
@@ -78,7 +79,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
    Route::controller(PurchaseController::class)->group(function () {
         Route::post('purchase/create', 'create');
+        // Route::delete('purchase/delete', 'delete');
+        // Route::get('purchase/read', 'read');
+        // Route::patch('purchase/update', 'update');
    });
+
+   Route::controller(OrderController::class)->group(function () {
+    Route::post('order/create', 'create');
+    Route::delete('order/delete', 'delete');
+    Route::get('order/read', 'read');
+    Route::patch('order/update', 'update');
+});
 });
 
 // ----------- RUTA LOGIN ----------------
