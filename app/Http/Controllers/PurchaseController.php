@@ -227,19 +227,9 @@ class PurchaseController extends Controller
             'ordDireccion' => 'required',
             'ordCiudad' => 'required',
             'ordDepartamento' => 'required',
-            'ordEstado' => 'required',
             'ordTotal' => 'required',
             'carrito' => 'required',
             'comprobantePago' => 'required',
-        ], [
-            'id.required' => $respuestas->error_400(),
-            'ordDireccion.required' => $respuestas->error_400(),
-            'ordCiudad.required' => $respuestas->error_400(),
-            'ordDepartamento.required' => $respuestas->error_400(),
-            'ordEstado.required' => $respuestas->error_400(),
-            'ordTotal.required' => $respuestas->error_400(),
-            'carrito.required' => $respuestas->error_400(),
-            'comprobantePago.required' => $respuestas->error_400(),
         ]);
 
         $order = new Order();
@@ -264,7 +254,7 @@ class PurchaseController extends Controller
             $purchase->cantidad = $product["cantidad"];
             $purchase->total = $product["total"];
             $purchase->estado = "Por confirmar";
-            $purchase->comcomprobantePago = $request->comprobantePago;
+            $purchase->comprobantePago = $request->comprobantePago;
             $purchase->user_id = $request->id;
 
             $order->purchases()->save($purchase);
