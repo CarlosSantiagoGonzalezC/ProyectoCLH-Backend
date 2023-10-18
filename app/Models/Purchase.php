@@ -10,9 +10,16 @@ class Purchase extends Model
 {
     use SoftDeletes, HasFactory;
 
-    public function orders(){
+    public function orders()
+    {
         return $this->belongsTo(Order::class);
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
 
     protected $hidden = [
         'created_at',

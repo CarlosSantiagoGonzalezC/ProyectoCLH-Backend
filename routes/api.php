@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
    Route::controller(PurchaseController::class)->group(function () {
         Route::post('purchase/create', 'create');
+        Route::get('purchase', 'getPurchasesUser');
         // Route::delete('purchase/delete', 'delete');
         // Route::get('purchase/read', 'read');
         // Route::patch('purchase/update', 'update');
