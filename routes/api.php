@@ -88,6 +88,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('order/create', 'create');
     Route::delete('order/delete', 'delete');
     Route::get('order/read', 'read');
+    Route::get('order/vendedor/{id}', 'readVendedor');
     Route::patch('order/update', 'update');
 });
 });
