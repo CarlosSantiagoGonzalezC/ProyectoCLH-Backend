@@ -218,7 +218,31 @@ class PurchaseController extends Controller
     //     return $array;
     // }
 
-    
+    /**
+     * METODO DE URL PURCHASE PARA OBTENER COMPRAS SEGUN EL COMPRADOR: GET
+     *
+     * Se recibe por key (id=#) el id del comprador y se trae la encontrada o se envia mensaje
+     * de error.
+     *
+     * @return json Datos con el result
+     **/
+    public function getPurchasesUser()
+    {
+        $_respuestas = new respuestas;
+
+        if (isset($_GET["id"])) {
+            $compradorId = $_GET["id"];
+            $purchases = Purchase::with('product') // Cargar la relación 'product'
+                ->where('user_id', $compradorId)
+                ->get();
+
+            return response()->json($purchases);
+        } else {
+            return $_respuestas->error_200("Debe añadir a la URL una key donde esté el ID del vendedor!!");
+        }
+    }
+
+
     public function create(Request $request)
     {
         $respuestas = new respuestas();
