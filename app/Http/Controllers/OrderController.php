@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -37,19 +38,35 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
-    public function readVendedor($id){
-        
-        // $purchases = Purchase::all()->filter(function (Purchase $purchase){
-        //     return $purchase->product
-        // });
-        
+    public function readVendedor($id)
+    {
 
-        // $json = array(
-        //     "order" => $order,
-        //     "purchases" => $orders->purchases()->get()
-        // );
+        $orders = Order::where('ordEstado', 'Por entregar')->get();
+        $json = [];
 
-        // return $orders;
+        foreach ($orders as $order) {
+            $purchases = $order->purchases()->with('product')->get();
+
+            $compras = [];
+
+            foreach ($purchases as $purchase) {
+                if ($purchase->product->user_id == $id) {
+                    $compras[] = $purchase;
+                }
+            }
+
+            $user = User::find($order->user_id);
+
+            $o = array(
+                "user" => $user,
+                "order" => $order,
+                "purchases" => $compras
+            );
+
+            $json[] = $o;
+        }
+
+        return $json;
     }
 
     /**
